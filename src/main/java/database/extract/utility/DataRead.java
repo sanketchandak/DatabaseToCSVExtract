@@ -16,13 +16,19 @@ public class DataRead {
     private static List<Map<String, String>> dbDetails = new ArrayList<>();
     private static Map<String, String> extractSetupDetails = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
-    public static List<Integer> getExecutionScheduledTime() {
-        List<Integer> timeDetails = new ArrayList<>();
+    public static int getExecutionHour() {
         setExecutionSetupDetails();
-        timeDetails.add(Integer.parseInt(extractSetupDetails.get("ExecutionHour")));
-        timeDetails.add(Integer.parseInt(extractSetupDetails.get("ExecutionMinutes")));
-        timeDetails.add(Integer.parseInt(extractSetupDetails.get("ExecutionSeconds")));
-        return timeDetails;
+        return Integer.parseInt(extractSetupDetails.get("ExecutionHour"));
+    }
+
+    public static int getExecutionMinutes() {
+        setExecutionSetupDetails();
+        return Integer.parseInt(extractSetupDetails.get("ExecutionMinutes"));
+    }
+
+    public static int getExecutionSeconds() {
+        setExecutionSetupDetails();
+        return Integer.parseInt(extractSetupDetails.get("ExecutionSeconds"));
     }
 
     public static int getThreadCount() {

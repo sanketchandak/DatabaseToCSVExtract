@@ -7,8 +7,6 @@ import java.util.concurrent.ExecutionException;
 
 public class Runner extends TimerTask {
 
-    private final static List<Integer> TIME_DETAILS = DataRead.getExecutionScheduledTime();
-
     @Override
     public void run() {
         try {
@@ -21,9 +19,9 @@ public class Runner extends TimerTask {
     private static Date verifySchedulingTime() {
         Date dateCurrentTime = new Date();
         Calendar dateExecutionTimeCalendar = Calendar.getInstance();
-        dateExecutionTimeCalendar.set(Calendar.HOUR, TIME_DETAILS.get(0));
-        dateExecutionTimeCalendar.set(Calendar.MILLISECOND, TIME_DETAILS.get(1));
-        dateExecutionTimeCalendar.set(Calendar.SECOND, TIME_DETAILS.get(2));
+        dateExecutionTimeCalendar.set(Calendar.HOUR, DataRead.getExecutionHour());
+        dateExecutionTimeCalendar.set(Calendar.MINUTE, DataRead.getExecutionMinutes());
+        dateExecutionTimeCalendar.set(Calendar.SECOND, DataRead.getExecutionSeconds());
         Date dateExecutionTime = dateExecutionTimeCalendar.getTime();
         if (dateExecutionTime.before(dateCurrentTime)) {
             Calendar calendar = Calendar.getInstance();
