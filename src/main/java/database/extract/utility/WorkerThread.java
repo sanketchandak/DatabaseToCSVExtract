@@ -28,8 +28,9 @@ public class WorkerThread implements Runnable {
              Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY)
         ) {
             statement.setFetchSize(100);
-            try (ResultSet rs = statement.executeQuery(dbDetails.getQuery())) {
-                FileWriter writer = new FileWriter(UtilityFunctionsClass.CURRENT_EXECUTION_DIR + File.separator + dbDetails.getEnvironmentAndFileName() + ".csv");
+            try (ResultSet rs = statement.executeQuery(dbDetails.getQuery());
+                 FileWriter writer = new FileWriter(UtilityFunctionsClass.CURRENT_EXECUTION_DIR + File.separator + dbDetails.getEnvironmentAndFileName() + ".csv"))
+            {
                 Class.forName("oracle.jdbc.driver.OracleDriver");
 
                 ResultSetMetaData rsmd = rs.getMetaData();
@@ -47,7 +48,7 @@ public class WorkerThread implements Runnable {
                                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yy hh.mm.ss.SSSSSSSSS a");
                                 Timestamp dbTimestamp = rs.getTimestamp(i);
                                 String mainTimeString = dbTimestamp.toString();
-                                String replaceWithString = String.format("%0$-9s", mainTimeString.substring(mainTimeString.lastIndexOf(".") + 1).trim())
+                                String replaceWithString = String.format("%1$-9s", mainTimeString.substring(mainTimeString.lastIndexOf(".") + 1).trim())
                                         .replace(" ", "0");
                                 mainTimeString = sdf.format(dbTimestamp);
                                 String replaceToString = mainTimeString.substring(mainTimeString.lastIndexOf(".") + 1, mainTimeString.lastIndexOf(" ")).trim();
@@ -64,7 +65,6 @@ public class WorkerThread implements Runnable {
                     }
                 }
                 writer.flush();
-                writer.close();
             }
             System.out.println("Extraction Completed for= " + dbDetails.getEnvironmentAndFileName());
         } catch (SQLException | IOException | ClassNotFoundException e) {

@@ -10,6 +10,10 @@ public class UtilityFunctionsClass {
     private static final String CURRENT_EXECUTION_MAIN_DIR = DataRead.getExtractionDirectoryPath() + File.separatorChar;
     static final String CURRENT_EXECUTION_DIR = CURRENT_EXECUTION_MAIN_DIR + CURRENT_EXECUTION_TIME_FOLDER;
 
+    private UtilityFunctionsClass() {
+        throw new IllegalStateException("UtilityFunctionsClass is a static class and instance can not be created for it");
+    }
+
     public static void createDirectoryForReports() {
         createDir(CURRENT_EXECUTION_MAIN_DIR);
         createDir(CURRENT_EXECUTION_DIR);

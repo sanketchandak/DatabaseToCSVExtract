@@ -13,6 +13,7 @@ public class Runner extends TimerTask {
             new ThreadRunner().threadSplitterRunner();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -33,13 +34,13 @@ public class Runner extends TimerTask {
         return dateExecutionTime;
     }
 
-    private static void StartTask() {
+    private static void startTask() {
         Runner task = new Runner();
         Timer timer = new Timer();
         timer.schedule(task, verifySchedulingTime());
     }
 
     public static void main(String[] args) {
-        StartTask();
+        startTask();
     }
 }

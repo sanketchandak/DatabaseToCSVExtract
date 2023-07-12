@@ -16,6 +16,10 @@ public class DataRead {
     private static List<Map<String, String>> dbDetails = new ArrayList<>();
     private static Map<String, String> extractSetupDetails = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
+    private DataRead() {
+        throw new IllegalStateException("DataRead is a static class and instance can not be created for it");
+    }
+
     public static int getExecutionHour() {
         setExecutionSetupDetails();
         return Integer.parseInt(extractSetupDetails.get("ExecutionHour"));

@@ -5,6 +5,11 @@ import com.codoid.products.fillo.Connection;
 import com.codoid.products.fillo.Fillo;
 
 public class DataWrite {
+
+    private DataWrite() {
+        throw new IllegalStateException("DataWrite is a static class and instance can not be created for it");
+    }
+
     public static void setExtractResultPath() {
         try {
             Fillo fillo = new Fillo();
